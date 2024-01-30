@@ -4,7 +4,7 @@ build:
 
 .PHONY:	saveKeyFile
 saveKeyFile:
-	echo ${{ env.KEY_FILE }}
+	echo ${{ secrets.KEY_FILE }}
 
 .PHONY:	setup
 setup:
