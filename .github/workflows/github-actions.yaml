@@ -10,7 +10,7 @@ jobs:
           fetch-depth: 1
       - shell: bash
         env:
-          KEY_FILE: ${{ secrets.KeyFile }}
+          KEY_FILE: ${{ secrets.KEY_FILE }}
         name: save key file into local
         run: make saveKeyFile
       - run: make setup
