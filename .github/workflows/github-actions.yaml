@@ -1,0 +1,6 @@
+name: Deploy To Rana8 by GitHub Actions
+jobs:
+  deploy-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: make setup
