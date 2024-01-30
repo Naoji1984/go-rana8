@@ -8,6 +8,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: save key file into local
+      - shell: bash
+        env:
+          KEY_FILE: ${{ secrets.KeyFile }}
+        name: save key file into local
         run: make saveKeyFile
-      - run: make setup
+      # - run: make setup
