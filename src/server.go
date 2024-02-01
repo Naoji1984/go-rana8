@@ -6,11 +6,13 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"text/template"
 )
 
 func main() {
 	log.Print("starting server...")
 	http.HandleFunc("/", handler)
+	http.HandleFunc("/p", handlerPage)
 
 	// Determine port for HTTP service.
 	port := os.Getenv("PORT")
@@ -32,4 +34,12 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		name = "World"
 	}
 	fmt.Fprintf(w, "Hello %s!\n", name)
+}
+
+func handlerPage(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("./templates/root.html")
+	if err != nil {
+		fmt.Printf("%w", err)
+	}
+	t.Execute(w, "Hello Rana8")
 }
