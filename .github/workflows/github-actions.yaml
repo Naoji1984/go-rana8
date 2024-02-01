@@ -13,4 +13,4 @@ jobs:
           KEY_FILE: ${{ secrets.KEY_FILE }}
         name: save key file into local
         run: make saveKeyFile
-      - run: make setup
+      - run: make deploy
