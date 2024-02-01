@@ -13,4 +13,8 @@ jobs:
           KEY_FILE: ${{ secrets.KEY_FILE }}
         name: save key file into local
         run: make saveKeyFile
-      - run: make deploy
+      - shell: bash
+        env:
+          SERVICE_ID: ${{ secrets.SERVICE_ID }}
+        name: deploy to rana8
+        run: make deploy
