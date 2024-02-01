@@ -11,8 +11,7 @@ import (
 
 func main() {
 	log.Print("starting server...")
-	http.HandleFunc("/", handler)
-	http.HandleFunc("/p", handlerPage)
+	http.HandleFunc("/", handlerPage)
 
 	// Determine port for HTTP service.
 	port := os.Getenv("PORT")
@@ -26,14 +25,6 @@ func main() {
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatal(err)
 	}
-}
-
-func handler(w http.ResponseWriter, r *http.Request) {
-	name := os.Getenv("NAME")
-	if name == "" {
-		name = "World"
-	}
-	fmt.Fprintf(w, "Hello %s!\n", name)
 }
 
 func handlerPage(w http.ResponseWriter, r *http.Request) {
