@@ -5,8 +5,8 @@ import "github.com/caarlos0/env/v10"
 var Config *AppConfig
 
 type AppConfig struct {
-	RDB  *RDBConfig
-	Port string `env:"PORT" envDefault:"8080"`
+	RDB     *RDBConfig
+	AppPort string `env:"PORT" envDefault:"8080"`
 }
 
 type RDBConfig struct {
@@ -20,4 +20,8 @@ type RDBConfig struct {
 func LoadConfig() {
 	Config = &AppConfig{}
 	env.Parse(Config)
+
+	rdbConfig := &RDBConfig{}
+	env.Parse(rdbConfig)
+	Config.RDB = rdbConfig
 }

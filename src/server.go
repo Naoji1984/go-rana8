@@ -18,7 +18,7 @@ func main() {
 	http.HandleFunc("/", handlerPage)
 
 	// Determine port for HTTP service.
-	port := config.Config.Port
+	port := config.Config.AppPort
 
 	log.Println(config.Config.RDB.Host)
 
