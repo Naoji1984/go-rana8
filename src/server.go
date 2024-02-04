@@ -5,20 +5,20 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
+	"runtime"
 	"text/template"
+
+	"github.com/Naoji1984/go-rana8/config"
 )
 
 func main() {
-	log.Print("starting server...")
+	showInitialMessage()
+	config.LoadConfig()
+
 	http.HandleFunc("/", handlerPage)
 
 	// Determine port for HTTP service.
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-		log.Printf("defaulting to port %s", port)
-	}
+	port := config.Config.Port
 
 	// Start HTTP server.
 	log.Printf("listening on port %s", port)
@@ -33,4 +33,13 @@ func handlerPage(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("%w", err)
 	}
 	t.Execute(w, "Hello Rana8")
+}
+
+func showInitialMessage() {
+	log.Println("*****************************************************")
+	log.Println("                  Running on Rana8                   ")
+	log.Println("")
+	log.Printf("Go version: %s\n", runtime.Version())
+	log.Printf("Number of cpu: %d\n", runtime.NumCPU())
+	log.Println("*****************************************************")
 }
