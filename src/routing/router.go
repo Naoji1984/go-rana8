@@ -43,6 +43,9 @@ func setAdditionalSecurityHeaders() echo.MiddlewareFunc {
 			res := c.Response()
 			res.Header().Set("Referrer-Policy", "no-referrer")
 			res.Header().Set("Permissions-Policy", "geolocation=(),microphone=(),camera=()")
+			res.Header().Set("Cross-Origin-Embedder-Policy", "require-corp")
+			res.Header().Set("Cross-Origin-Opener-Policy", "same-origin")
+			res.Header().Set("Cross-Origin-Resource-Policy", "same-site")
 			return next(c)
 		}
 	}
