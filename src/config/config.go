@@ -14,6 +14,7 @@ type RDBConfig struct {
 	Port     string `env:"RANA8_DB_PORT"`
 	User     string `env:"RANA8_DB_USER"`
 	Password string `env:"RANA8_DB_PASSWORD"`
+	Name     string `env:"RANA8_DB_NAME"`
 }
 
 func LoadConfig() {

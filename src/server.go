@@ -20,6 +20,8 @@ func main() {
 	// Determine port for HTTP service.
 	port := config.Config.Port
 
+	log.Println(config.Config.RDB.Host)
+
 	// Start HTTP server.
 	log.Printf("listening on port %s", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {

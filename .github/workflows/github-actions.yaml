@@ -16,5 +16,10 @@ jobs:
       - shell: bash
         env:
           SERVICE_ID: ${{ secrets.SERVICE_ID }}
+          RANA8_DB_HOST: ${{ secrets.RANA8_DB_HOST }}
+          RANA8_DB_PORT: ${{ secrets.RANA8_DB_PORT }}
+          RANA8_DB_USER: ${{ secrets.RANA8_DB_USER }}
+          RANA8_DB_PASSWORD: ${{ secrets.RANA8_DB_PASSWORD }}
+          RANA8_DB_NAME: ${{ secrets.RANA8_DB_NAME }}
         name: deploy to rana8
         run: make deploy
