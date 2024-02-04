@@ -19,20 +19,33 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 
 func Init(e *echo.Echo) {
 	e.Use(middleware.Gzip())
-	setDefaultHeaders(e)
+	setSecurityHeaders(e)
 	setTemplates(e)
 	registerHandlers(e)
 }
 
-func setDefaultHeaders(e *echo.Echo) {
+func setSecurityHeaders(e *echo.Echo) {
 	e.Use(middleware.SecureWithConfig(middleware.SecureConfig{
 		XSSProtection:         "1; mode=block",
 		ContentTypeNosniff:    "nosniff",
 		XFrameOptions:         "SAMEORIGIN",
-		HSTSMaxAge:            3600,
+		HSTSMaxAge:            2592000,
 		HSTSExcludeSubdomains: false,
 		ContentSecurityPolicy: "default-src 'none'; script-src-elem https://cdn.jsdelivr.net/; style-src-elem https://cdn.jsdelivr.net/;",
 	}))
+	e.Use(setAdditionalSecurityHeaders())
+}
+
+func setAdditionalSecurityHeaders() echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+
+			res := c.Response()
+			res.Header().Set("Referrer-Policy", "no-referrer")
+			res.Header().Set("Permissions-Policy", "geolocation=(),microphone=(),camera=()")
+			return next(c)
+		}
+	}
 }
 
 func registerHandlers(e *echo.Echo) {
