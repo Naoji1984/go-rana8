@@ -1,4 +1,4 @@
-package listener
+package routing
 
 import (
 	"html/template"
@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 type Template struct {
@@ -17,6 +18,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 }
 
 func Init(e *echo.Echo) {
+	e.Use(middleware.Gzip())
 	setTemplates(e)
 	registerHandlers(e)
 }
