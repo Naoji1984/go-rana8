@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{ range $key, $value := . }}
+                    {{ range $key, $value := .Envs }}
                         <tr>
                             <td>{{ $key }}</td>
                             <td>{{ $value }}</td>

@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Naoji1984/go-rana8/model/view"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
@@ -65,16 +66,17 @@ func setTemplates(e *echo.Echo) {
 }
 
 func index(c echo.Context) error {
-	items := make(map[string]string)
+	vm := view.IndexViewModel{}
+	vm.Envs = make(map[string]string)
 
 	for _, e := range os.Environ() {
 		pair := strings.Split(e, "=")
 		if strings.HasPrefix(pair[0], "RANA8_") {
-			items[pair[0]] = "***************"
+			vm.Envs[pair[0]] = "***************"
 		} else {
-			items[pair[0]] = pair[1]
+			vm.Envs[pair[0]] = pair[1]
 		}
 	}
 
-	return c.Render(http.StatusOK, "index", items)
+	return c.Render(http.StatusOK, "index", vm)
 }
