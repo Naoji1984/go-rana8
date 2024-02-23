@@ -69,7 +69,11 @@ func index(c echo.Context) error {
 
 	for _, e := range os.Environ() {
 		pair := strings.Split(e, "=")
-		items[pair[0]] = pair[1]
+		if strings.HasPrefix(pair[0], "RANA8_") {
+			items[pair[0]] = "***************"
+		} else {
+			items[pair[0]] = pair[1]
+		}
 	}
 
 	return c.Render(http.StatusOK, "index", items)
