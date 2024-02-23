@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"os"
+	"strings"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -63,5 +65,12 @@ func setTemplates(e *echo.Echo) {
 }
 
 func index(c echo.Context) error {
-	return c.Render(http.StatusOK, "index", "Hello Rana8")
+	items := make(map[string]string)
+
+	for _, e := range os.Environ() {
+		pair := strings.Split(e, "=")
+		items[pair[0]] = pair[1]
+	}
+
+	return c.Render(http.StatusOK, "index", items)
 }
