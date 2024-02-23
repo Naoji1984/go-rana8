@@ -21,24 +21,53 @@
         </div>
     </nav>
     <div class="container mt-4">
-        <h3>Environment Variables</h3>
-        <div class="table-responsive">
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">Key</th>
-                        <th scope="col">Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ range $key, $value := .Envs }}
-                        <tr>
-                            <td>{{ $key }}</td>
-                            <td>{{ $value }}</td>
-                        </tr>
-                    {{ end }}                        
-                </tbody>    
-            </table>
+        <div class="row mb-4">
+            <div class="col">
+                <h3>Platform </h3>
+                <div class="mb-3 row">
+                    <label for="os" class="col-sm-2 col-form-label">OS</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="os" value="{{ .GoOs }}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="architecture" class="col-sm-2 col-form-label">Architecture</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="architecture"
+                            value="{{ .GoArch }}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="numberOfCpu" class="col-sm-2 col-form-label">numberOfCpu</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="numberOfCpu"
+                            value="{{ .NumCPU }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>Environment Variables</h3>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Key</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ range $key, $value := .Envs }}
+                            <tr>
+                                <td>{{ $key }}</td>
+                                <td>{{ $value }}</td>
+                            </tr>
+                            {{ end }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"runtime"
 	"strings"
 
 	"github.com/Naoji1984/go-rana8/model/view"
@@ -77,6 +78,10 @@ func index(c echo.Context) error {
 			vm.Envs[pair[0]] = pair[1]
 		}
 	}
+
+	vm.GoOs = runtime.GOOS
+	vm.GoArch = runtime.GOARCH
+	vm.NumCPU = runtime.NumCPU()
 
 	return c.Render(http.StatusOK, "index", vm)
 }
